@@ -4,7 +4,7 @@ from player import Player
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mouth beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -36,9 +36,9 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
-
+# print(room)
 # Make a new player object that is currently in the 'outside' room.
-player = Player(cur_room='outside')
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,5 +49,37 @@ player = Player(cur_room='outside')
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-current_room = player.cur_room
-print(f"Your location: {player.cur_room}, {player.cur_room.room_description}")
+
+currentRoom = room['outside']
+selection = ""
+while selection != "q":
+    
+    player = Player("Guybrush", currentRoom, [])
+    print(f"{player.name}, in the {currentRoom}")
+    selection = input('\nWhich direction would you like to move?\n')
+    
+    try:
+        selection = str(selection)
+        if selection == "n":
+            if currentRoom.n_to is None:
+                print("\nYou can't move that way! Try another direction!\n")
+            else:
+                currentRoom = currentRoom.n_to
+        if selection == 's':
+            if currentRoom.s_to is None:
+                print("\nYou can't move that way, try another direction\n")
+            else:
+                currentRoom = currentRoom.s_to
+        if selection == 'e':
+            if currentRoom.e_to is None:
+                print("\nYou can't move that way, try another direction\n")
+            else:
+                currentRoom = currentRoom.e_to
+        if selection == 'w':
+            if currentRoom.w_to is None:
+                print("\nYou can't move that way, try another direction\n")
+            else:
+                currentRoom = currentRoom.w_to
+        
+    except ValueError:
+        print("please enter a valid direction to move (n , e, s, w)")

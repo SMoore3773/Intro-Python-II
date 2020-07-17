@@ -2,9 +2,17 @@
 # currently.
 from room import Room
 
+
 class Player:
-    def __init__(self, cur_room):
-        self.cur_room = cur_room
-        # self.room_loc = room_loc
-        # self.item_inv = item_inv
-        # self.alive = alive
+    def __init__(self, name, room, items=[]):
+        self.name = name
+        self.room = room
+        self.items = items
+
+    def __str__(self):
+        output = f"{self.name} you are here: {self.room}. "
+        return output
+
+    # def move(dir):
+    #     output = self.room.{dir}_to
+    #     return output
